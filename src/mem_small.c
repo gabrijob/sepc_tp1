@@ -11,12 +11,14 @@
 void *
 emalloc_small(unsigned long size)
 {
-    void *head = arena.chunkpool;
+    void *head = NULL;
     void *ptr = NULL;
 
-    if(head == NULL){
+    if(arena.chunkpool == NULL){
     	mem_realloc_small();
     }
+
+    head = arena.chunkpool;
 
     ptr = mark_memarea_and_get_user_ptr(head, CHUNKSIZE, SMALL_KIND);
     arena.chunkpool =arena.chunkpool + CHUNKSIZE;
